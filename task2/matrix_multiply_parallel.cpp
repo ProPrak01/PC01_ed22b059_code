@@ -1,7 +1,8 @@
 #include <iostream>
 #include <pthread.h>
 #include<unistd.h>
-
+#include <chrono>
+using namespace std::chrono;
 using namespace std;
 //struct of thread data->
 struct thread_data{
@@ -82,7 +83,7 @@ int main(){
     
     pthread_t newThread[N];   // So here i created a new array of threads locations
     thread_data data[N]; // create an array of thread_data struct
-    
+     auto start = high_resolution_clock::now();
     // in the code for each iteration the ith row num will be given to the ith
     // index value of data[] and its pointer will be passed to the ith thread created.
     for(int i=0;i<N;i++){
@@ -95,9 +96,14 @@ int main(){
     for(int j=0;j<N;j++){
         pthread_join(newThread[j], NULL);
     }
-    
+            auto stop = high_resolution_clock::now();
+
+            auto time_span = duration_cast<microseconds>(stop - start);
+
     // resultant matrix printing->
     print_matrix(resultant_matrix);
+    cout << "Time taken by function: " << time_span.count() << " microseconds" << endl;    
+
     return 0;
     
 }

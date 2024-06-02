@@ -10,7 +10,7 @@ private:
     T* data;
     size_t curr_size;
     size_t capacity;
-    void resize();
+    void resize( size_t newCapacity );
     
 public:
     Tank();
@@ -21,10 +21,8 @@ public:
     T at(size_t index);
     
     void pop_back();
-    void push_back(T& value);
     
-  
-    
+    void push_back(T &value);
 };
 
 #endif /* tank_hpp */

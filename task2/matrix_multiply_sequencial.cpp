@@ -1,4 +1,6 @@
 #include <iostream>
+#include <chrono>
+using namespace std::chrono;
 using namespace std;
 //globally initiallizing the variables:
 int N;
@@ -72,14 +74,14 @@ int main(){
     cout<<"matrix-2"<<endl;
     print_matrix(matrix2);
 
-    
+        auto start = high_resolution_clock::now();
     matrix_multiplication();
-    
+        auto stop = high_resolution_clock::now();
     //print resultant matrix:
     cout<<"resultant"<<endl;
     print_matrix(resultant_matrix);
-    
-    
+        auto time_span = duration_cast<microseconds>(stop - start);
+    cout << "Time taken by function: " << time_span.count() << " microseconds" << endl;    
     
 }
 

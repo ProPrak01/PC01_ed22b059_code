@@ -1,4 +1,19 @@
 #include "tank.hpp"
+/*
+changes done: post interview
+
+the newCapacity defined in 
+the push back function will be send as a parameter to the resize function
+which will resize the capacity accordingly
+
+and for the question asked in the interview: 
+the pop back function here checks if the array needs to be shrunk. If the current size falls below a 
+quarter of the capacity, and the capacity is more than 1, 
+then it reduces the capacity to half its current value to free up unused space.
+*/
+
+
+
 
 // Constructor
 template<typename T>
@@ -31,15 +46,20 @@ size_t Tank<T>::size(){
 template <typename T>
 
 void Tank<T>::pop_back(){
-    
-    (curr_size>0)?curr_size--:cout<<"data is empty!\n";
-    
+   if (curr_size > 0) {
+        curr_size--;
+        // Check if we need to shrink the array
+        if (curr_size <= capacity / 4 && capacity > 1) {
+            size_t newCapacity = capacity / 2;
+            resize(newCapacity);
+        }
+    } else {
+        cout << "data is empty!\n";
+    }
 }
-
-
 template<typename T>
-void Tank<T>::resize() {
-    int newCapacity = (capacity == 0) ? 1 : capacity * 2;
+void Tank<T>::resize(size_t newCapacity) {
+   
     T* newData = new T[newCapacity];
     for (int i = 0; i < curr_size; i++) {
         newData[i] = data[i];
@@ -52,7 +72,7 @@ void Tank<T>::resize() {
 template <typename T>
 void Tank<T>::push_back(T &value){
     if (curr_size == capacity) {
-            int newCapacity = (capacity == 0) ? 1 : capacity * 2;
+            size_t newCapacity = (capacity == 0) ? 1 : capacity * 2;
             if (newCapacity > size() * 2) {
                 newCapacity = size() * 2;  // Ensure the capacity does not exceed twice the size
             }
